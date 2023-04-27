@@ -27,7 +27,8 @@ class DropboxFeedStorage(BlockingFeedStorage):
             CHUNK_SIZE = 4 * 1024 * 1024
             file_size = os.stat(file.name).st_size
             if file_size <= CHUNK_SIZE:
-                res = dbx.files_upload(file.read(), path, mute=True, mode=WriteMode('overwrite'))
+#                 res = dbx.files_upload(file.read(), path, mute=True, mode=WriteMode('overwrite'))
+                res = dbx.files_upload(file.read(), path, mute=True, mode=dropbox.files.WriteMode.overwrite)            
             else:
                 upload_session_start_result = dbx.files_upload_session_start(file.read(CHUNK_SIZE))
                 cursor = dropbox.files.UploadSessionCursor(
